@@ -1,40 +1,50 @@
 package com.skillsoft.reflection;
 
-import java.lang.reflect.Constructor; // Reflection Constructor class
-//import java.lang.reflect.Method; // Reflection Method class
-//import java.lang.reflect.Field; // Reflection Field class
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        Employee jessica = new Employee("Jessica", "VP", 124000);
+        Object object = new Object();
 
-        System.out.println("Employee Jessica: " + jessica);
-
-        Class<?> employeeClass = jessica.getClass();
-
-        System.out.println("Class for object Jessica: " + employeeClass);
+        System.out.println("Object class via object: " + object.getClass());
+        System.out.println("Object class via class: " + Object.class);
         System.out.println();
 
-        Constructor<?>[] constructors = employeeClass.getConstructors(); // getConstructors only gets the public constructor methods
+        Integer integerObject = 123;
 
-        for (Constructor<?> constructor : constructors) {
-            System.out.println(constructor);
-        }
+        System.out.println("Integer class via object: " + integerObject.getClass());
+        System.out.println("Integer class via class: " + Integer.class);
+        System.out.println();
 
-//        Method[] methods = employeeClass.getMethods(); // getMethods only gets the public methods
-//
-//        for (Method method : methods) {
-//            System.out.println(method);
-//        }
+        Double doubleObject = 123.0;
 
-//        Field[] fields = employeeClass.getFields(); // getFields method is only going to return all of the public fields
-//
-//        System.out.println("Fields of the Employee class: " + fields);
-//        System.out.println();
-//
-//        for (Field field: fields) {
-//            System.out.println(field);
-//        }
+        System.out.println("Double class via object: " + doubleObject.getClass());
+        System.out.println("Double class via class: " + Double.class);
+        System.out.println();
+
+        ArrayList arrayList = new ArrayList();
+
+        System.out.println("ArrayList class via object: " + arrayList.getClass());
+        System.out.println("ArrayList class via class: " + ArrayList.class);
+        System.out.println();
+
+        ArrayList<Integer> integerArrayList = new ArrayList<Integer>();
+
+        System.out.println("Integer ArrayList class via object: " + integerArrayList.getClass());
+
+        System.out.println();
+
+        List<Integer> integerList = new ArrayList<>();
+        List<Float> floatList = new ArrayList<>();
+
+        System.out.println("Integer ArrayList class via object: " + integerList.getClass());
+        System.out.println("Float ArrayList class via object: " + floatList.getClass());
+
+
     }
 }
+
+// https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html
+// Java docs for the class Class
