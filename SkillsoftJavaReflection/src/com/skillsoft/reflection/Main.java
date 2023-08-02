@@ -1,50 +1,95 @@
 package com.skillsoft.reflection;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Main {
 
-    enum Weekday  {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday
+    private static final class HR extends Department {
+
+        public HR() {
+            super("HR");
+        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
 
-        Weekday day = Weekday.Monday;
+        System.out.println("********** toGenericString()");
+        Class<?> employeeClass = Class.forName("com.skillsoft.reflection.Employee");
+        Class<?> salaryClass = Class.forName("com.skillsoft.reflection.Employee$Salary");
+        Class<?> hrClass = Class.forName("com.skillsoft.reflection.Main$HR");
 
-        System.out.println("************ Enum");
+        class MobileApplication implements Deliverable {
 
-        System.out.println("Is enum: " + day.getClass().isEnum()); // true
-        System.out.println("Is primitive: " + day.getClass().isPrimitive()); // false
+            @Override
+            public String getProjectName() {
+                return "Mongo Mobile Application";
+            }
+
+            @Override
+            public String getProjectStatus() {
+                return "Deployed";
+            }
+        }
+
+        Class<?> mobileApplicationClass = Class.forName("com.skillsoft.reflection.Main$1MobileApplication");
+
+        System.out.println(employeeClass.toGenericString()); // public class com.skillsoft.reflection.Employee
+        System.out.println(salaryClass.toGenericString()); // public class com.skillsoft.reflection.Employee$Salary
+        System.out.println(hrClass.toGenericString()); // private static final class com.skillsoft.reflection.Main$HR
+        System.out.println(mobileApplicationClass.toGenericString()); // class com.skillsoft.reflection.Main$1MobileApplication
+
+        System.out.println();
+
+        System.out.println("************** packages");
+
+        Package employeeClassPackage = employeeClass.getPackage();
+        Package mobileApplicationClassPackage = mobileApplicationClass.getPackage();
+
+        System.out.println("Employee package: " + employeeClassPackage); // package com.skillsoft.reflection
+        System.out.println("MobileSApplication package: " + mobileApplicationClassPackage); // package com.skillsoft.reflection
+
+        Set<Integer> set = new HashSet<>();
+
+        System.out.println("Set package: " + set.getClass().getPackage()); // package java.util
+        System.out.println("Double package: " + Double.class.getPackage()); // package java.lang
 
         System.out.println();
 
-        Integer[] integerArray = new Integer[] {1, 2, 3, 4};
+        System.out.println("*************** Superclass");
 
-        System.out.println("************** Integer arrays");
-
-        System.out.println("Is array: " + integerArray.getClass().isArray()); // true
-        System.out.println("Is primitive: " + integerArray.getClass().isPrimitive()); // false
-
-        System.out.println();
-
-        int[] intArray = new int[] {1, 2, 3, 4};
-
-        System.out.println("*************** int arrays");
-
-        System.out.println("Is array: " + intArray.getClass().isArray()); // true
-        System.out.println("Is primitive: " + intArray.getClass().isPrimitive()); // false
+        System.out.println("Employee superclass: " + employeeClass.getSuperclass()); // class java.lang.Object
+        System.out.println("MobileApplication superclass: " + mobileApplicationClass.getSuperclass()); // class java.lang.Object
+        System.out.println("HR superclass: " + hrClass.getSuperclass()); // class com.skillsoft.reflection.Department
+        System.out.println("Set superclass: " + set.getClass().getSuperclass()); // class java.util.AbstractSet
 
         System.out.println();
 
-        System.out.println("************** ints");
+        System.out.println("************ Implemented interfaces");
 
-        System.out.println("Is array: " + int.class.isArray()); // false
-        System.out.println("Is primitive: " + int.class.isPrimitive()); // true
+        System.out.println("*** MobileApplication");
+        System.out.println(Arrays.asList(mobileApplicationClass.getInterfaces())); // [interface com.skillsoft.reflection.Deliverable]
+
+        System.out.println("*** HashSet");
+        System.out.println(Arrays.asList(set.getClass().getInterfaces())); // [interface java.util.Set, interface java.lang.Cloneable, interface java.io.Serializable]
 
         System.out.println();
+
+
+        System.out.println("********* Declaring and Enclosing Class");
+
+        System.out.println("******* Employee");
+        System.out.println("Declaring class: " + employeeClass.getDeclaringClass()); // null
+        System.out.println("Enclosing class: " + employeeClass.getEnclosingClass()); // null
+
+        System.out.println("******* HR");
+        System.out.println("Declaring class: " + hrClass.getDeclaringClass()); // class com.skillsoft.reflection.Main
+        System.out.println("Enclosing class: " + hrClass.getEnclosingClass()); // class com.skillsoft.reflection.Main
+
+        System.out.println("****** MobileApplication");
+        System.out.println("Declaring class: " + mobileApplicationClass.getDeclaringClass()); // null
+        System.out.println("Enclosing class: " + mobileApplicationClass.getEnclosingClass()); // class com.skillsoft.reflection.Main
     }
 }
 
