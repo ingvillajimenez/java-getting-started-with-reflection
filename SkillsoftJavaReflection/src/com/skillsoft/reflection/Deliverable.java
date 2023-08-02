@@ -1,4 +1,8 @@
 package com.skillsoft.reflection;
 
-public class Deliverable {
+public interface Deliverable {
+
+    String getProjectName();
+
+    String getProjectStatus();
 }

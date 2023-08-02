@@ -6,17 +6,44 @@ public class Employee {
 
     private static final Random employeeIdGenerator = new Random();
 
-    private int employeeId;
+    private final int employeeId;
+
+    private Salary salary;
 
     public Employee() {
         this.employeeId = Math.abs(employeeIdGenerator.nextInt());
+    }
+
+    public Employee(double baseSalary, float bonusPercentage) {
+        this();
+
+        this.salary = new Salary(baseSalary, bonusPercentage);
     }
 
     public int getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public class Salary {
+
+        private final double baseSalary;
+        private final float bonusPercentage;
+
+        public Salary(double baseSalary, float bonusPercentage) {
+            this.baseSalary = baseSalary;
+            this.bonusPercentage =  bonusPercentage;
+        }
+
+        @Override
+        public String toString() {
+            // NOTE: A member class is associated with an instance of the outer class and can
+            // access the private members of the outer class
+            return String.format("ID: %d, Base salary: %f, Bonus percentage: %f",
+                    employeeId, baseSalary, bonusPercentage);
+        }
     }
 }
